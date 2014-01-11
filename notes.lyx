@@ -1,0 +1,187 @@
+#LyX 2.0 created this file. For more info see http://www.lyx.org/
+\lyxformat 413
+\begin_document
+\begin_header
+\textclass scrartcl
+\use_default_options true
+\begin_modules
+theorems-ams
+theorems-sec
+\end_modules
+\maintain_unincluded_children false
+\language british
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman default
+\font_sans default
+\font_typewriter default
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize 12
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_amsmath 2
+\use_esint 0
+\use_mhchem 1
+\use_mathdots 1
+\cite_engine natbib_numerical
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\use_refstyle 0
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+Random Neuroscience Notes
+\end_layout
+
+\begin_layout Author
+Heiko
+\end_layout
+
+\begin_layout Section
+Bio-Physics and all that
+\end_layout
+
+\begin_layout Subsection
+Nearnst Potential
+\end_layout
+
+\begin_layout Standard
+Estimate membrane potential, equate the thermal energy of a mole of ions
+ to the energy gained/lost when a mole of ions crosses a membrane with potential
+ difference 
+\begin_inset Formula $V_{T}$
+\end_inset
+
+
+\begin_inset Formula 
+\begin{align*}
+RT & =FV_{T}\\
+V_{T} & =\frac{RT}{F}
+\end{align*}
+
+\end_inset
+
+Probability (Boltzmann distribution) that an ion has a thermal energy
+\begin_inset Formula 
+\begin{align*}
+\text{Pr}(\text{Energy[Ion]}\geq zqV) & =\exp\left(\frac{zFV}{RT}\right)\\
+ & =\exp\left(\frac{zV}{V_{T}}\right)
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $[\text{Ion}]_{\text{In}}$
+\end_inset
+
+ ,
+\begin_inset Formula $[\text{Ion}]_{\text{Out}}$
+\end_inset
+
+ concentration of ions in/outside of cell
+\end_layout
+
+\begin_layout Itemize
+Rate of outwards flow is proportional to 
+\begin_inset Formula $[\text{Ion}]_{\text{In}}$
+\end_inset
+
+ times the probability above.
+ Fraction of ions with enough thermal energy to cross the potential.
+\end_layout
+
+\begin_layout Itemize
+Rate of inwards flow is proportional to 
+\begin_inset Formula $[\text{Ion}]_{\text{Out }}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Compute Nerst Potential (voltage 
+\begin_inset Formula $E$
+\end_inset
+
+) that satisfies balancing condition, i.e.
+ flow in and out is equal
+\begin_inset Formula 
+\begin{align*}
+[\text{Ion}]_{\text{Out}} & =[\text{Ion}]_{\text{In}}\exp\left(\frac{zE}{RT}\right)\\
+\Rightarrow E & =\frac{RT}{zF}\log\frac{[\text{Ion}]_{\text{In}}}{[\text{Ion}]_{\text{Out}}}\\
+ & =\frac{V_{T}}{z}\log\frac{[\text{Ion}]_{\text{In}}}{[\text{Ion}]_{\text{Out}}}
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $T$
+\end_inset
+
+ temperatur
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $R$
+\end_inset
+
+ gas constant
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $F$
+\end_inset
+
+ Faraday constant
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $z$
+\end_inset
+
+ valence of ion (depends on ion type)
+\end_layout
+
+\end_body
+\end_document
