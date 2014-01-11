@@ -3,6 +3,27 @@
 \begin_document
 \begin_header
 \textclass scrartcl
+\begin_preamble
+ \usepackage[ plainpages = true, pdfpagelabels, 
+               pdfpagelayout = useoutlines,
+               bookmarks,
+               bookmarksopen = true,
+               bookmarksnumbered = true,
+               breaklinks = true,
+               linktocpage,
+               pagebackref,
+               colorlinks = true,
+               linkcolor = blue,
+               urlcolor  = blue,
+               citecolor = red,
+               anchorcolor = green,
+               hyperindex = true,
+               hyperfigures
+               ]{hyperref} 
+\usepackage{url}
+
+\allowdisplaybreaks
+\end_preamble
 \use_default_options true
 \begin_modules
 theorems-ams
@@ -69,7 +90,7 @@ Random Neuroscience Notes
 \end_layout
 
 \begin_layout Author
-Heiko
+Heiko, Wittawat
 \end_layout
 
 \begin_layout Section
@@ -184,14 +205,391 @@ Compute Nerst Potential (voltage
 \end_layout
 
 \begin_layout Section
+Plasticity and Learning
+\end_layout
 
-\lang english
+\begin_layout Subsection
+Basic Hebb Rule
+\end_layout
+
+\begin_layout Standard
+The simplest rule which follows Hebb's conjecture
+\begin_inset Formula 
+\[
+\tau_{w}\frac{d\boldsymbol{w}}{dt}=v\boldsymbol{u}
+\]
+
+\end_inset
+
+where 
+\begin_inset Formula $\tau_{w}$
+\end_inset
+
+ is the time constant controlling the rate at which the weights change.
+ The equation implies that simultaneous pre- and postsynaptic activity increases
+ synaptic strength.
+ This rule, when averaged over the inputs used during training, becomes
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+\tau_{w}\frac{d\boldsymbol{w}}{dt}=\left\langle v\boldsymbol{u}\right\rangle \label{eq:basic_hebb_avg}
+\end{equation}
+
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+where 
+\begin_inset Formula $\left\langle \cdot\right\rangle $
+\end_inset
+
+ denotes averages over training input patterns.
+ Assume 
+\begin_inset Formula $v=\boldsymbol{w}\cdot\boldsymbol{u}$
+\end_inset
+
+.
+ Then, Eq.
+ 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:basic_hebb_avg"
+
+\end_inset
+
+ becomes:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\tau_{w}\frac{d\boldsymbol{w}}{dt}=\left\langle \boldsymbol{w}\cdot\boldsymbol{u}\cdot\boldsymbol{u}\right\rangle =\boldsymbol{Q}\cdot\boldsymbol{w}
+\]
+
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+where 
+\begin_inset Formula $\boldsymbol{Q}=\left\langle \boldsymbol{u}\cdot\boldsymbol{u}\right\rangle $
+\end_inset
+
+ is the input correlation matrix.
+ This equation is called a correlation-based plasticity rule.
+\end_layout
+
+\begin_layout Standard
+The basic Hebb rule is unstable because the length of 
+\begin_inset Formula $\boldsymbol{w}$
+\end_inset
+
+ grows continuously.
+ 
+\begin_inset Formula 
+\[
+\frac{d\|\boldsymbol{w}\|^{2}}{dt}=2\boldsymbol{w}\frac{d\boldsymbol{w}}{dt}=2\boldsymbol{w}^{\top}\boldsymbol{u}v/\tau_{w}=2v^{2}/\tau_{w}
+\]
+
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+It can be seen that the change of the length of 
+\begin_inset Formula $\boldsymbol{w}$
+\end_inset
+
+ is always nonnegative.
+ In this case, an upper saturation constraint must be imposed.
+ Even with saturation, the basic Hebb rule fails to induce competition between
+ different synapses.
+\end_layout
+
+\begin_layout Standard
+Synaptic modification can also be modeled as a discrete process.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\boldsymbol{w}\leftarrow\boldsymbol{w}+\epsilon\boldsymbol{Q}\boldsymbol{w}
+\]
+
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+where 
+\begin_inset Formula $\epsilon$
+\end_inset
+
+ is analogous to the learning rate 
+\begin_inset Formula $1/\tau_{w}$
+\end_inset
+
+ in the continuous rule.
+ 
+\end_layout
+
+\begin_layout Subsection
+The Covariance Rule
+\end_layout
+
+\begin_layout Standard
+If 
+\begin_inset Formula $u$
+\end_inset
+
+ and 
+\begin_inset Formula $v$
+\end_inset
+
+ represent firing rates (positive), the basic Hebb rule describes only LTP.
+ This can be seen the change in weights is 
+\begin_inset Formula $\tau_{w}\frac{d\boldsymbol{w}}{dt}=v\boldsymbol{u}$
+\end_inset
+
+ nonnegative.
+ To allow negative change, we consider
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\tau_{w}\frac{d\boldsymbol{w}}{dt}=\left(v-\theta_{v}\right)\boldsymbol{u}
+\]
+
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+where 
+\begin_inset Formula $\theta_{v}$
+\end_inset
+
+ is a postsynaptic threshold that determines the level of postsynaptic activity
+ above which LTD switches to LTP.
+ An alternative is to consider a presynaptic threshold instead.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+\tau_{w}\frac{d\boldsymbol{w}}{dt}=v\left(\boldsymbol{u}-\boldsymbol{\theta}_{u}\right)\label{eq:cov_rule_u}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+To simplify the analysis, we consider the average over training input patterns.
+ Assume 
+\begin_inset Formula $v=\boldsymbol{w}^{\top}\boldsymbol{u}$
+\end_inset
+
+ as before and use the averate as the threshold i.e., 
+\begin_inset Formula $\boldsymbol{\theta}_{u}:=\left\langle \boldsymbol{u}\right\rangle $
+\end_inset
+
+.
+ We have,
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{align*}
+\tau_{w}\frac{d\boldsymbol{w}}{dt} & =\left\langle v(\boldsymbol{u}-\boldsymbol{\theta}_{u})\right\rangle =\left\langle \boldsymbol{u}\boldsymbol{u}^{\top}\boldsymbol{w}-\boldsymbol{\theta}_{u}\boldsymbol{u}^{\top}\boldsymbol{w}\right\rangle \\
+ & \Rightarrow\left\langle \boldsymbol{u}\boldsymbol{u}^{\top}\boldsymbol{w}-\left\langle \boldsymbol{u}\right\rangle \boldsymbol{u}^{\top}\boldsymbol{w}\right\rangle =\left(\left\langle \boldsymbol{u}\boldsymbol{u}^{\top}\right\rangle -\left\langle \boldsymbol{u}\right\rangle \left\langle \boldsymbol{u}\right\rangle ^{\top}\right)\boldsymbol{w}\\
+ & =C\boldsymbol{w}
+\end{align*}
+
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+where 
+\begin_inset Formula $C$
+\end_inset
+
+ is the input covariance matrix.
+ Covariance rules include LTD.
+ However, they are still unstable and non-competitive.
+ This can be seen with
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\frac{d\|\boldsymbol{w}\|^{2}}{dt}=2\boldsymbol{w}\frac{d\boldsymbol{w}}{dt}=\frac{2}{\tau_{w}}\boldsymbol{w}^{\top}C\boldsymbol{w}
+\]
+
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+which is non-negative since 
+\begin_inset Formula $C$
+\end_inset
+
+ is positive semi-definite.
+ Note that Eq.
+ 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:cov_rule_u"
+
+\end_inset
+
+ produces LTD even without presynaptic activity.
+ 
+\end_layout
+
+\begin_layout Subsection
+The BCM Rule
+\end_layout
+
+\begin_layout Standard
+Eq.
+ 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:cov_rule_u"
+
+\end_inset
+
+ produces LTD even without presynaptic activity.
+ There is an experimental evidence that requires both pre- and postsynaptic
+ activity to change a synaptic weight.
+ The BCM rule takes the form
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\tau_{w}\frac{d\boldsymbol{w}}{dt}=v\boldsymbol{u}\left(v-\theta_{v}\right)
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+If 
+\begin_inset Formula $\theta_{v}$
+\end_inset
+
+ is fixed, the BCM rule is unstable.
+ It can be stabilized by allowing the threshold to vary i.e., 
+\begin_inset Formula $\theta_{v}=\theta_{v}(t)$
+\end_inset
+
+ 
+\series bold
+(sliding threshold)
+\series default
+.
+ The critical condition for statiblity is that 
+\begin_inset Formula $\theta_{v}$
+\end_inset
+
+ must grow more rapidly than 
+\begin_inset Formula $v$
+\end_inset
+
+.
+ 
+\begin_inset Formula 
+\[
+\tau_{\theta}\frac{d\theta_{v}}{dt}=v^{2}-\theta_{v}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+With a sliding threshold, the BCM rule implements competition between synapses.
+\end_layout
+
+\begin_layout Subsection
+Synaptic Normalization
+\end_layout
+
+\begin_layout Standard
+Instability often results from an unbounded growth of 
+\begin_inset Formula $\boldsymbol{w}$
+\end_inset
+
+.
+ One direct way to stabilize a Hebbian plasticity rule is to add terms that
+ depend explicitly on the weights.
+ This will penalize the the growth by the magnitude of itself.
+ 
+\end_layout
+
+\begin_layout Standard
+Two types of constraints are typically used.
+ 
+\end_layout
+
+\begin_layout Itemize
+Holding 
+\begin_inset Formula $\sum_{i}w_{i}$
+\end_inset
+
+ to a constant in case that 
+\begin_inset Formula $w_{i}$
+\end_inset
+
+ is nonnegative
+\end_layout
+
+\begin_layout Itemize
+Holding 
+\begin_inset Formula $\sum_{i}w_{i}^{2}$
+\end_inset
+
+ to a constant 
+\end_layout
+
+\begin_layout Standard
+In either case, the constraint can be imposed
+\end_layout
+
+\begin_layout Itemize
+Rigidly -- Require that the constraint be satisfied at all tims during the
+ training
+\end_layout
+
+\begin_layout Itemize
+Dynamically -- Require that the constraint be asymptotically satistified
+ at the end
+\end_layout
+
+\begin_layout Section
 Glossary
 \end_layout
 
 \begin_layout Description
-
-\lang english
 action
 \begin_inset space ~
 \end_inset
@@ -202,14 +600,10 @@ potential A positive feedback process occurred when a neuron is sufficiently
 \end_layout
 
 \begin_layout Description
-
-\lang english
 AMPA a
 \end_layout
 
 \begin_layout Description
-
-\lang english
 angular
 \begin_inset space ~
 \end_inset
@@ -218,8 +612,6 @@ phase s
 \end_layout
 
 \begin_layout Description
-
-\lang english
 asynchronous
 \begin_inset space ~
 \end_inset
@@ -228,8 +620,6 @@ network
 \end_layout
 
 \begin_layout Description
-
-\lang english
 axial
 \begin_inset space ~
 \end_inset
@@ -238,8 +628,6 @@ resistance s
 \end_layout
 
 \begin_layout Description
-
-\lang english
 Cartesian
 \begin_inset space ~
 \end_inset
@@ -248,8 +636,6 @@ code mmm
 \end_layout
 
 \begin_layout Description
-
-\lang english
 cell-attached
 \begin_inset space ~
 \end_inset
@@ -258,32 +644,22 @@ recording c
 \end_layout
 
 \begin_layout Description
-
-\lang english
 cortex a
 \end_layout
 
 \begin_layout Description
-
-\lang english
 cross-covariogram c
 \end_layout
 
 \begin_layout Description
-
-\lang english
 depress sda
 \end_layout
 
 \begin_layout Description
-
-\lang english
 dopamine s
 \end_layout
 
 \begin_layout Description
-
-\lang english
 downwards
 \begin_inset space ~
 \end_inset
@@ -292,8 +668,6 @@ unblocking d
 \end_layout
 
 \begin_layout Description
-
-\lang english
 electrotonic
 \begin_inset space ~
 \end_inset
@@ -302,8 +676,6 @@ length exam explicitly asks to define the term.
 \end_layout
 
 \begin_layout Description
-
-\lang english
 equilibrium
 \begin_inset space ~
 \end_inset
@@ -316,8 +688,6 @@ rate eee
 \end_layout
 
 \begin_layout Description
-
-\lang english
 Excitatory
 \begin_inset space ~
 \end_inset
@@ -328,14 +698,10 @@ synapse synapse in which an action potential in a presynaptic neuron increases
 \end_layout
 
 \begin_layout Description
-
-\lang english
 facilitate sadfsfds
 \end_layout
 
 \begin_layout Description
-
-\lang english
 GABA
 \begin_inset Formula $_{A}$
 \end_inset
@@ -344,8 +710,6 @@ GABA
 \end_layout
 
 \begin_layout Description
-
-\lang english
 GABA
 \begin_inset Formula $_{B}$
 \end_inset
@@ -354,8 +718,6 @@ GABA
 \end_layout
 
 \begin_layout Description
-
-\lang english
 Hopfield
 \begin_inset space ~
 \end_inset
@@ -364,8 +726,6 @@ network am
 \end_layout
 
 \begin_layout Description
-
-\lang english
 hyperpolarization is the process in which positively charged ions flow out
  of a cell, or negatively charged ions flow into the cell, making the membrane
  potential more negative.
@@ -373,16 +733,12 @@ hyperpolarization is the process in which positively charged ions flow out
 \end_layout
 
 \begin_layout Description
-
-\lang english
 ion an atom or molecule in which the total number of electrons is not equal
  to the total number of protons, giving the atom a net positive or negative
  electrical charge
 \end_layout
 
 \begin_layout Description
-
-\lang english
 I-V
 \begin_inset space ~
 \end_inset
@@ -391,20 +747,14 @@ curve i
 \end_layout
 
 \begin_layout Description
-
-\lang english
 LGMD lobula giant motion detector
 \end_layout
 
 \begin_layout Description
-
-\lang english
 LGN l
 \end_layout
 
 \begin_layout Description
-
-\lang english
 Long-term
 \begin_inset space ~
 \end_inset
@@ -414,8 +764,6 @@ depression an activity-dependent reduction in the efficacy of neuronal synapses
 \end_layout
 
 \begin_layout Description
-
-\lang english
 mean-field
 \begin_inset space ~
 \end_inset
@@ -424,8 +772,6 @@ analysis m
 \end_layout
 
 \begin_layout Description
-
-\lang english
 membrane
 \begin_inset space ~
 \end_inset
@@ -438,8 +784,6 @@ constant m
 \end_layout
 
 \begin_layout Description
-
-\lang english
 membrane
 \begin_inset space ~
 \end_inset
@@ -448,26 +792,18 @@ resistance m
 \end_layout
 
 \begin_layout Description
-
-\lang english
 neuromodulator nnnn
 \end_layout
 
 \begin_layout Description
-
-\lang english
 neurotransmitter mmmm
 \end_layout
 
 \begin_layout Description
-
-\lang english
 NMDA n
 \end_layout
 
 \begin_layout Description
-
-\lang english
 passive
 \begin_inset space ~
 \end_inset
@@ -476,8 +812,6 @@ dendrite a
 \end_layout
 
 \begin_layout Description
-
-\lang english
 place
 \begin_inset space ~
 \end_inset
@@ -486,8 +820,6 @@ cell pp
 \end_layout
 
 \begin_layout Description
-
-\lang english
 population
 \begin_inset space ~
 \end_inset
@@ -496,8 +828,6 @@ vector pp
 \end_layout
 
 \begin_layout Description
-
-\lang english
 position-invariant
 \begin_inset space ~
 \end_inset
@@ -506,8 +836,6 @@ tuning p
 \end_layout
 
 \begin_layout Description
-
-\lang english
 preference
 \begin_inset space ~
 \end_inset
@@ -517,8 +845,6 @@ reversal in the context of exponential and hyperbolic discounting of future
 \end_layout
 
 \begin_layout Description
-
-\lang english
 random
 \begin_inset space ~
 \end_inset
@@ -531,8 +857,6 @@ schedule in animal experiment
 \end_layout
 
 \begin_layout Description
-
-\lang english
 receptive
 \begin_inset space ~
 \end_inset
@@ -541,8 +865,6 @@ field rrrr
 \end_layout
 
 \begin_layout Description
-
-\lang english
 response
 \begin_inset space ~
 \end_inset
@@ -551,14 +873,10 @@ function rrrr
 \end_layout
 
 \begin_layout Description
-
-\lang english
 retina r
 \end_layout
 
 \begin_layout Description
-
-\lang english
 retinal
 \begin_inset space ~
 \end_inset
@@ -571,8 +889,6 @@ cells r
 \end_layout
 
 \begin_layout Description
-
-\lang english
 retinotopic
 \begin_inset space ~
 \end_inset
@@ -581,8 +897,6 @@ mapping rr
 \end_layout
 
 \begin_layout Description
-
-\lang english
 spike-time
 \begin_inset space ~
 \end_inset
@@ -599,14 +913,10 @@ plasticity
 \end_layout
 
 \begin_layout Description
-
-\lang english
 somatosensation s
 \end_layout
 
 \begin_layout Description
-
-\lang english
 subtractive
 \begin_inset space ~
 \end_inset
@@ -615,8 +925,6 @@ normalization s
 \end_layout
 
 \begin_layout Description
-
-\lang english
 synaptic
 \begin_inset space ~
 \end_inset
@@ -625,8 +933,6 @@ efficacy ss
 \end_layout
 
 \begin_layout Description
-
-\lang english
 Synaptic
 \begin_inset space ~
 \end_inset
@@ -638,8 +944,6 @@ plasticity the ability of synapses to strengthen or weaken over time, in
 \end_layout
 
 \begin_layout Description
-
-\lang english
 Synaptic
 \begin_inset space ~
 \end_inset
@@ -648,8 +952,6 @@ potentiation increases in strength of synapses.
 \end_layout
 
 \begin_layout Description
-
-\lang english
 tuning
 \begin_inset space ~
 \end_inset
@@ -658,8 +960,6 @@ curve sm
 \end_layout
 
 \begin_layout Description
-
-\lang english
 variable-ratio
 \begin_inset space ~
 \end_inset
@@ -668,8 +968,6 @@ schedule v
 \end_layout
 
 \begin_layout Description
-
-\lang english
 Wilson-Cowan
 \begin_inset space ~
 \end_inset
@@ -678,8 +976,6 @@ equations sad
 \end_layout
 
 \begin_layout Description
-
-\lang english
 whole-cell
 \begin_inset space ~
 \end_inset
