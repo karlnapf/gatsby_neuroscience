@@ -183,5 +183,509 @@ Compute Nerst Potential (voltage
  valence of ion (depends on ion type)
 \end_layout
 
+\begin_layout Section
+
+\lang english
+Glossary
+\end_layout
+
+\begin_layout Description
+
+\lang english
+action
+\begin_inset space ~
+\end_inset
+
+potential A positive feedback process occurred when a neuron is sufficiently
+ depolarized to raise the membrane potential above the threshold i.e., a spike.
+ An action potential is about 100 mV and lasts for about 1 ms.
+\end_layout
+
+\begin_layout Description
+
+\lang english
+AMPA a
+\end_layout
+
+\begin_layout Description
+
+\lang english
+angular
+\begin_inset space ~
+\end_inset
+
+phase s
+\end_layout
+
+\begin_layout Description
+
+\lang english
+asynchronous
+\begin_inset space ~
+\end_inset
+
+network 
+\end_layout
+
+\begin_layout Description
+
+\lang english
+axial
+\begin_inset space ~
+\end_inset
+
+resistance s
+\end_layout
+
+\begin_layout Description
+
+\lang english
+Cartesian
+\begin_inset space ~
+\end_inset
+
+code mmm
+\end_layout
+
+\begin_layout Description
+
+\lang english
+cell-attached
+\begin_inset space ~
+\end_inset
+
+recording c
+\end_layout
+
+\begin_layout Description
+
+\lang english
+cortex a
+\end_layout
+
+\begin_layout Description
+
+\lang english
+cross-covariogram c
+\end_layout
+
+\begin_layout Description
+
+\lang english
+depress sda
+\end_layout
+
+\begin_layout Description
+
+\lang english
+dopamine s
+\end_layout
+
+\begin_layout Description
+
+\lang english
+downwards
+\begin_inset space ~
+\end_inset
+
+unblocking d
+\end_layout
+
+\begin_layout Description
+
+\lang english
+electrotonic
+\begin_inset space ~
+\end_inset
+
+length exam explicitly asks to define the term.
+\end_layout
+
+\begin_layout Description
+
+\lang english
+equilibrium
+\begin_inset space ~
+\end_inset
+
+firing
+\begin_inset space ~
+\end_inset
+
+rate eee
+\end_layout
+
+\begin_layout Description
+
+\lang english
+Excitatory
+\begin_inset space ~
+\end_inset
+
+synapse synapse in which an action potential in a presynaptic neuron increases
+ the probability of an action potential occurring in a postsynaptic cell.
+ 
+\end_layout
+
+\begin_layout Description
+
+\lang english
+facilitate sadfsfds
+\end_layout
+
+\begin_layout Description
+
+\lang english
+GABA
+\begin_inset Formula $_{A}$
+\end_inset
+
+ f
+\end_layout
+
+\begin_layout Description
+
+\lang english
+GABA
+\begin_inset Formula $_{B}$
+\end_inset
+
+ g
+\end_layout
+
+\begin_layout Description
+
+\lang english
+Hopfield
+\begin_inset space ~
+\end_inset
+
+network am
+\end_layout
+
+\begin_layout Description
+
+\lang english
+hyperpolarization is the process in which positively charged ions flow out
+ of a cell, or negatively charged ions flow into the cell, making the membrane
+ potential more negative.
+ The opposite is depolarization.
+\end_layout
+
+\begin_layout Description
+
+\lang english
+ion an atom or molecule in which the total number of electrons is not equal
+ to the total number of protons, giving the atom a net positive or negative
+ electrical charge
+\end_layout
+
+\begin_layout Description
+
+\lang english
+I-V
+\begin_inset space ~
+\end_inset
+
+curve i
+\end_layout
+
+\begin_layout Description
+
+\lang english
+LGMD lobula giant motion detector
+\end_layout
+
+\begin_layout Description
+
+\lang english
+LGN l
+\end_layout
+
+\begin_layout Description
+
+\lang english
+Long-term
+\begin_inset space ~
+\end_inset
+
+depression an activity-dependent reduction in the efficacy of neuronal synapses
+ lasting hours or longer following a long patterned stimulus.
+\end_layout
+
+\begin_layout Description
+
+\lang english
+mean-field
+\begin_inset space ~
+\end_inset
+
+analysis m
+\end_layout
+
+\begin_layout Description
+
+\lang english
+membrane
+\begin_inset space ~
+\end_inset
+
+time
+\begin_inset space ~
+\end_inset
+
+constant m
+\end_layout
+
+\begin_layout Description
+
+\lang english
+membrane
+\begin_inset space ~
+\end_inset
+
+resistance m
+\end_layout
+
+\begin_layout Description
+
+\lang english
+neuromodulator nnnn
+\end_layout
+
+\begin_layout Description
+
+\lang english
+neurotransmitter mmmm
+\end_layout
+
+\begin_layout Description
+
+\lang english
+NMDA n
+\end_layout
+
+\begin_layout Description
+
+\lang english
+passive
+\begin_inset space ~
+\end_inset
+
+dendrite a
+\end_layout
+
+\begin_layout Description
+
+\lang english
+place
+\begin_inset space ~
+\end_inset
+
+cell pp
+\end_layout
+
+\begin_layout Description
+
+\lang english
+population
+\begin_inset space ~
+\end_inset
+
+vector pp
+\end_layout
+
+\begin_layout Description
+
+\lang english
+position-invariant
+\begin_inset space ~
+\end_inset
+
+tuning p
+\end_layout
+
+\begin_layout Description
+
+\lang english
+preference
+\begin_inset space ~
+\end_inset
+
+reversal in the context of exponential and hyperbolic discounting of future
+ rewards.
+\end_layout
+
+\begin_layout Description
+
+\lang english
+random
+\begin_inset space ~
+\end_inset
+
+interval
+\begin_inset space ~
+\end_inset
+
+schedule in animal experiment
+\end_layout
+
+\begin_layout Description
+
+\lang english
+receptive
+\begin_inset space ~
+\end_inset
+
+field rrrr
+\end_layout
+
+\begin_layout Description
+
+\lang english
+response
+\begin_inset space ~
+\end_inset
+
+function rrrr
+\end_layout
+
+\begin_layout Description
+
+\lang english
+retina r
+\end_layout
+
+\begin_layout Description
+
+\lang english
+retinal
+\begin_inset space ~
+\end_inset
+
+ganglion
+\begin_inset space ~
+\end_inset
+
+cells r
+\end_layout
+
+\begin_layout Description
+
+\lang english
+retinotopic
+\begin_inset space ~
+\end_inset
+
+mapping rr
+\end_layout
+
+\begin_layout Description
+
+\lang english
+spike-time
+\begin_inset space ~
+\end_inset
+
+dependent
+\begin_inset space ~
+\end_inset
+
+plasticity
+\begin_inset space ~
+\end_inset
+
+(STDP) sp
+\end_layout
+
+\begin_layout Description
+
+\lang english
+somatosensation s
+\end_layout
+
+\begin_layout Description
+
+\lang english
+subtractive
+\begin_inset space ~
+\end_inset
+
+normalization s
+\end_layout
+
+\begin_layout Description
+
+\lang english
+synaptic
+\begin_inset space ~
+\end_inset
+
+efficacy ss
+\end_layout
+
+\begin_layout Description
+
+\lang english
+Synaptic
+\begin_inset space ~
+\end_inset
+
+plasticity the ability of synapses to strengthen or weaken over time, in
+ response to increases or decreases in their activity.
+ The strength of a synapse is defined by the amplitude of the change in
+ membrane potential as a result of a presynaptic action potential.
+\end_layout
+
+\begin_layout Description
+
+\lang english
+Synaptic
+\begin_inset space ~
+\end_inset
+
+potentiation increases in strength of synapses.
+\end_layout
+
+\begin_layout Description
+
+\lang english
+tuning
+\begin_inset space ~
+\end_inset
+
+curve sm
+\end_layout
+
+\begin_layout Description
+
+\lang english
+variable-ratio
+\begin_inset space ~
+\end_inset
+
+schedule v
+\end_layout
+
+\begin_layout Description
+
+\lang english
+Wilson-Cowan
+\begin_inset space ~
+\end_inset
+
+equations sad
+\end_layout
+
+\begin_layout Description
+
+\lang english
+whole-cell
+\begin_inset space ~
+\end_inset
+
+recording ww
+\end_layout
+
 \end_body
 \end_document
