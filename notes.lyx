@@ -58,7 +58,7 @@ theorems-sec
 \use_esint 0
 \use_mhchem 1
 \use_mathdots 1
-\cite_engine natbib_numerical
+\cite_engine basic
 \use_bibtopic false
 \use_indices false
 \paperorientation portrait
@@ -180,7 +180,7 @@ Compute Nerst Potential (voltage
 \begin_inset Formula $T$
 \end_inset
 
- temperatur
+ temperature
 \end_layout
 
 \begin_layout Itemize
@@ -206,6 +206,94 @@ Compute Nerst Potential (voltage
 
 \begin_layout Section
 Plasticity and Learning
+\end_layout
+
+\begin_layout Itemize
+Donald Hebb conjectured that if input from neuron A often contributes to
+ the firing of neuron B, then the synapse from A to B should be strengthened.
+ The statement was later generalized to include decrease in strength from
+ repeated failure of neuron A to be involved in the activation of neuron
+ B.
+ 
+\end_layout
+
+\begin_layout Itemize
+So, synapses change in proportion to the correlation of the activities of
+ the pre-synaptic and post-synaptic neurons.
+\end_layout
+
+\begin_layout Itemize
+stability ? adaptability ? How are they related ?
+\end_layout
+
+\begin_layout Paragraph
+Stability and Competition
+\end_layout
+
+\begin_layout Itemize
+Existence of an upper limit of synaptic weights is supported by LTP experiments.
+\end_layout
+
+\begin_layout Itemize
+(Synaptic) Saturation constraint states that all excitatory synaptic weights
+ must lie between 0 and a maximum value 
+\begin_inset Formula $w_{max}$
+\end_inset
+
+ (constant).
+\end_layout
+
+\begin_layout Itemize
+Under Hebbian rule, all of the synaptic weights may be driven to their maximum
+ values, causing the postsynaptic neuron to lose selectivity to different
+ patterns of input.
+\end_layout
+
+\begin_layout Paragraph
+Synaptic Plasticity Rules
+\end_layout
+
+\begin_layout Itemize
+The rules take the form of differential equations describing the rate of
+ change of synaptic weights 
+\begin_inset Formula $w$
+\end_inset
+
+ as a function of presynaptic activity 
+\begin_inset Formula $u$
+\end_inset
+
+ and postsynaptic activity 
+\begin_inset Formula $v$
+\end_inset
+
+.
+ Normally, 
+\begin_inset Formula $u$
+\end_inset
+
+ and 
+\begin_inset Formula $v$
+\end_inset
+
+ represent the firing rates.
+\end_layout
+
+\begin_layout Itemize
+If 
+\begin_inset Formula $u$
+\end_inset
+
+ and 
+\begin_inset Formula $v$
+\end_inset
+
+ represent the firing rates, they should be restricted to nonnegative values.
+ However, they may be allowed to take negative values to simplify the analysis,
+ in which case they can be interpreted as the difference between a firing
+ rate and a fixed background rate.
+ They may be made dimensionless by redefining them as the ratio of a firing
+ rate to their maximum.
 \end_layout
 
 \begin_layout Subsection
@@ -239,10 +327,6 @@ where
 
 \end_inset
 
-
-\begin_inset Newline newline
-\end_inset
-
 where 
 \begin_inset Formula $\left\langle \cdot\right\rangle $
 \end_inset
@@ -272,10 +356,6 @@ reference "eq:basic_hebb_avg"
 
 \end_inset
 
-
-\begin_inset Newline newline
-\end_inset
-
 where 
 \begin_inset Formula $\boldsymbol{Q}=\left\langle \boldsymbol{u}\cdot\boldsymbol{u}\right\rangle $
 \end_inset
@@ -298,10 +378,6 @@ The basic Hebb rule is unstable because the length of
 
 \end_inset
 
-
-\begin_inset Newline newline
-\end_inset
-
 It can be seen that the change of the length of 
 \begin_inset Formula $\boldsymbol{w}$
 \end_inset
@@ -322,10 +398,6 @@ Synaptic modification can also be modeled as a discrete process.
 \boldsymbol{w}\leftarrow\boldsymbol{w}+\epsilon\boldsymbol{Q}\boldsymbol{w}
 \]
 
-\end_inset
-
-
-\begin_inset Newline newline
 \end_inset
 
 where 
@@ -368,10 +440,6 @@ If
 \tau_{w}\frac{d\boldsymbol{w}}{dt}=\left(v-\theta_{v}\right)\boldsymbol{u}
 \]
 
-\end_inset
-
-
-\begin_inset Newline newline
 \end_inset
 
 where 
@@ -418,10 +486,6 @@ To simplify the analysis, we consider the average over training input patterns.
 
 \end_inset
 
-
-\begin_inset Newline newline
-\end_inset
-
 where 
 \begin_inset Formula $C$
 \end_inset
@@ -438,10 +502,6 @@ where
 \frac{d\|\boldsymbol{w}\|^{2}}{dt}=2\boldsymbol{w}\frac{d\boldsymbol{w}}{dt}=\frac{2}{\tau_{w}}\boldsymbol{w}^{\top}C\boldsymbol{w}
 \]
 
-\end_inset
-
-
-\begin_inset Newline newline
 \end_inset
 
 which is non-negative since 
@@ -506,7 +566,7 @@ If
 (sliding threshold)
 \series default
 .
- The critical condition for statiblity is that 
+ The critical condition for stability is that 
 \begin_inset Formula $\theta_{v}$
 \end_inset
 
@@ -576,13 +636,77 @@ In either case, the constraint can be imposed
 \end_layout
 
 \begin_layout Itemize
-Rigidly -- Require that the constraint be satisfied at all tims during the
- training
+Rigidly -- Require that the constraint be satisfied at all times during
+ the training
 \end_layout
 
 \begin_layout Itemize
-Dynamically -- Require that the constraint be asymptotically satistified
- at the end
+Dynamically -- Require that the constraint be asymptotically satisfied at
+ the end
+\end_layout
+
+\begin_layout Section
+Network
+\end_layout
+
+\begin_layout Subsection
+Hopfield Network
+\end_layout
+
+\begin_layout Section
+Random Facts
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $Na^{+}$
+\end_inset
+
+ is more concentrated outside a neuron than inside it.
+ 
+\begin_inset Formula $K^{+}$
+\end_inset
+
+ is higher inside than outside.
+\end_layout
+
+\begin_layout Itemize
+neuron sufficiently depolarized 
+\begin_inset Formula $\rightarrow$
+\end_inset
+
+ spike 
+\begin_inset Formula $\rightarrow$
+\end_inset
+
+ propagate regeneratively along axon 
+\begin_inset Formula $\rightarrow$
+\end_inset
+
+ terminate at a synapse 
+\begin_inset Formula $\rightarrow$
+\end_inset
+
+ opens ion channels, producing an influx of 
+\begin_inset Formula $Ca^{2+}$
+\end_inset
+
+ 
+\begin_inset Formula $\rightarrow$
+\end_inset
+
+ leads to release of neurotransmitter 
+\begin_inset Formula $\rightarrow$
+\end_inset
+
+ neurotransmitter binds to receptors at postsynaptic synapse 
+\begin_inset Formula $\rightarrow$
+\end_inset
+
+ ion-conducting channels open 
+\begin_inset Formula $\rightarrow$
+\end_inset
+
+ the spike carries on
 \end_layout
 
 \begin_layout Section
@@ -604,27 +728,11 @@ AMPA a
 \end_layout
 
 \begin_layout Description
-angular
-\begin_inset space ~
-\end_inset
-
-phase s
-\end_layout
-
-\begin_layout Description
 asynchronous
 \begin_inset space ~
 \end_inset
 
-network 
-\end_layout
-
-\begin_layout Description
-axial
-\begin_inset space ~
-\end_inset
-
-resistance s
+network s
 \end_layout
 
 \begin_layout Description
@@ -702,19 +810,7 @@ facilitate sadfsfds
 \end_layout
 
 \begin_layout Description
-GABA
-\begin_inset Formula $_{A}$
-\end_inset
-
- f
-\end_layout
-
-\begin_layout Description
-GABA
-\begin_inset Formula $_{B}$
-\end_inset
-
- g
+GABA major inhibitory neurotransmitter in the central nervous system.
 \end_layout
 
 \begin_layout Description
