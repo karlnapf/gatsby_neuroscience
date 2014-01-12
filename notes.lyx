@@ -208,22 +208,18 @@ Compute Nerst Potential (voltage
 Plasticity and Learning
 \end_layout
 
-\begin_layout Itemize
+\begin_layout Paragraph
+Hebb rule
+\end_layout
+
+\begin_layout Standard
 Donald Hebb conjectured that if input from neuron A often contributes to
  the firing of neuron B, then the synapse from A to B should be strengthened.
  The statement was later generalized to include decrease in strength from
  repeated failure of neuron A to be involved in the activation of neuron
  B.
- 
-\end_layout
-
-\begin_layout Itemize
-So, synapses change in proportion to the correlation of the activities of
- the pre-synaptic and post-synaptic neurons.
-\end_layout
-
-\begin_layout Itemize
-stability ? adaptability ? How are they related ?
+ So, synapses change in proportion to the correlation (can be negative or
+ positive) of the activities of the pre-synaptic and post-synaptic neurons.
 \end_layout
 
 \begin_layout Paragraph
@@ -231,12 +227,20 @@ Stability and Competition
 \end_layout
 
 \begin_layout Itemize
-Existence of an upper limit of synaptic weights is supported by LTP experiments.
+Hebbian modification may produce uncontrolled growth of synaptic strengths
+ due to positive feedback process which encourages higher and higher modificatio
+n.
+ To control the strengthening, we impose an upper limit on the value a synaptic
+ weight can take.
+ Existence of such upper limit is supported by LTP experiments.
 \end_layout
 
 \begin_layout Itemize
-(Synaptic) Saturation constraint states that all excitatory synaptic weights
- must lie between 0 and a maximum value 
+(Synaptic) Saturation constraint states that all 
+\emph on
+excitatory 
+\emph default
+synaptic weights must lie between 0 and a maximum value 
 \begin_inset Formula $w_{max}$
 \end_inset
 
@@ -247,6 +251,9 @@ Existence of an upper limit of synaptic weights is supported by LTP experiments.
 Under Hebbian rule, all of the synaptic weights may be driven to their maximum
  values, causing the postsynaptic neuron to lose selectivity to different
  patterns of input.
+ To cope with this problem, we require competition between different synapses
+ (synaptic competition) so that some are forced to weaken when others become
+ strong.
 \end_layout
 
 \begin_layout Paragraph
@@ -259,16 +266,30 @@ The rules take the form of differential equations describing the rate of
 \begin_inset Formula $w$
 \end_inset
 
- as a function of presynaptic activity 
+ as a function of 
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+presynaptic activity 
 \begin_inset Formula $u$
 \end_inset
 
- and postsynaptic activity 
+ and 
+\end_layout
+
+\begin_layout Itemize
+postsynaptic activity 
 \begin_inset Formula $v$
 \end_inset
 
 .
- Normally, 
+ 
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+Normally, 
 \begin_inset Formula $u$
 \end_inset
 
@@ -297,11 +318,24 @@ If
 \end_layout
 
 \begin_layout Subsection
-Basic Hebb Rule
+Basic Hebb Rule 
 \end_layout
 
 \begin_layout Standard
-The simplest rule which follows Hebb's conjecture
+Consider 
+\begin_inset Formula $N_{u}$
+\end_inset
+
+ presynaptic inputs with activities 
+\begin_inset Formula $u_{b}$
+\end_inset
+
+ for 
+\begin_inset Formula $b=1\ldots,N_{u}$
+\end_inset
+
+.
+ The simplest rule which follows Hebb's conjecture
 \begin_inset Formula 
 \[
 \tau_{w}\frac{d\boldsymbol{w}}{dt}=v\boldsymbol{u}
@@ -468,7 +502,7 @@ To simplify the analysis, we consider the average over training input patterns.
 \begin_inset Formula $v=\boldsymbol{w}^{\top}\boldsymbol{u}$
 \end_inset
 
- as before and use the averate as the threshold i.e., 
+ as before and use the average as the threshold i.e., 
 \begin_inset Formula $\boldsymbol{\theta}_{u}:=\left\langle \boldsymbol{u}\right\rangle $
 \end_inset
 
@@ -603,7 +637,9 @@ Instability often results from an unbounded growth of
  One direct way to stabilize a Hebbian plasticity rule is to add terms that
  depend explicitly on the weights.
  This will penalize the the growth by the magnitude of itself.
- 
+ Synaptic normalization is based on the idea that the postsynaptic neuron
+ can support only a fixed total synaptic weight, so increases in some weights
+ must be accompanied by decreases in others.
 \end_layout
 
 \begin_layout Standard
@@ -645,6 +681,533 @@ Dynamically -- Require that the constraint be asymptotically satisfied at
  the end
 \end_layout
 
+\begin_layout Standard
+Weight normalization can drastically alter the outcome of a training.
+\end_layout
+
+\begin_layout Subsubsection
+Subtractive Normalization
+\end_layout
+
+\begin_layout Standard
+The Hebb rule with subtractive normalization is given by
+\begin_inset Formula 
+\[
+\tau_{w}\frac{d\boldsymbol{w}}{dt}=v\boldsymbol{u}-v\bar{u}
+\]
+
+\end_inset
+
+where 
+\begin_inset Formula $\bar{u}:=\sum_{i=1}^{N_{u}}u_{i}/N_{u}$
+\end_inset
+
+ (a scalar).
+ In subtractive normalization, the same quantity is subtracted from the
+ change to each weight regardless of the magnitude of the weight.
+ Subtractive normalization introduces a competition among weights as small
+ weights are reduced by a larger proportion of their sizes than large weights.
+ Upper saturation limit constraint is required as without it the procedure
+ often results in a situation where all weights but one are set to 0.
+\end_layout
+
+\begin_layout Standard
+Subtractive normalization imposes a constraint on the sum of weights rigidly.
+\end_layout
+
+\begin_layout Subsubsection
+Multiplicative Normalization and Oja Rule
+\end_layout
+
+\begin_layout Standard
+Oja rule imposes a constraint on the sum of squares of weights dynamically.
+\begin_inset Formula 
+\[
+\tau_{w}\frac{d\boldsymbol{w}}{dt}=v\boldsymbol{u}-\alpha v^{2}\boldsymbol{w}
+\]
+
+\end_inset
+
+The normalization is called multiplicative because the amount of modification
+ is proportional to 
+\begin_inset Formula $\boldsymbol{w}$
+\end_inset
+
+ (unlike subtractive normalization).
+ By taking the derivative of 
+\begin_inset Formula $\|\boldsymbol{w}\|^{2}$
+\end_inset
+
+, 
+\begin_inset Formula 
+\begin{align*}
+\tau_{w}\frac{d\|\boldsymbol{w}\|^{2}}{dt} & =2v^{2}\left(1-\alpha\|\boldsymbol{w}\|^{2}\right)=0\\
+\Rightarrow\|\boldsymbol{w}\|^{2} & =1/\alpha
+\end{align*}
+
+\end_inset
+
+showing that the weights do not grow without bound (stable).
+ Since the squared norm 
+\begin_inset Formula $\|\boldsymbol{w}\|^{2}$
+\end_inset
+
+ is constant, increasing one weight will force the others to decrease, hence
+ encouraging a competition.
+\end_layout
+
+\begin_layout Subsection
+Summary on Plasticity and Learning
+\end_layout
+
+\begin_layout Itemize
+Assume the postsynaptic activity 
+\begin_inset Formula $v$
+\end_inset
+
+ depends linearly on the presynaptic activities 
+\begin_inset Formula $\boldsymbol{u}$
+\end_inset
+
+ i.e., 
+\begin_inset Formula $v=\boldsymbol{u}^{\top}\boldsymbol{w}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $\boldsymbol{Q}:=\left\langle \boldsymbol{u}\boldsymbol{u}^{\top}\right\rangle $
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $C:=\left\langle \left(\boldsymbol{u}-\left\langle \boldsymbol{u}\right\rangle \right)\left(\boldsymbol{u}-\left\langle \boldsymbol{u}\right\rangle \right)^{\top}\right\rangle $
+\end_inset
+
+ (covariance matrix)
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $\bar{u}:=\sum_{i=1}^{N_{u}}u_{i}/N_{u}$
+\end_inset
+
+ (mean of all inputs).
+ Note that 
+\begin_inset Formula $\bar{u}$
+\end_inset
+
+ is a scalar.
+ This is not the same as 
+\begin_inset Formula $\left\langle \boldsymbol{u}\right\rangle $
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Tabular
+<lyxtabular version="3" rows="6" columns="6">
+<features islongtable="true" headBottomDL="true" longtabularalignment="center">
+<column alignment="center" valignment="top" width="2cm">
+<column alignment="center" valignment="top" width="4cm">
+<column alignment="center" valignment="top" width="2cm">
+<column alignment="center" valignment="top" width="2cm">
+<column alignment="center" valignment="top" width="1.5cm">
+<column alignment="center" valignment="top" width="3cm">
+<row endhead="true">
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Rule
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Equation
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Stable?
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Synaptic competition?
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Explain LTD?
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Comment
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+ Hebb
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\tau_{w}\frac{d\boldsymbol{w}}{dt}=v\boldsymbol{u}$
+\end_inset
+
+ or 
+\begin_inset Formula $\tau_{w}\frac{d\boldsymbol{w}}{dt}=\boldsymbol{Q}\boldsymbol{w}$
+\end_inset
+
+ 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+no
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+no
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+no
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Covariance 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\tau_{w}\frac{d\boldsymbol{w}}{dt}=\left(v-\theta_{v}\right)\boldsymbol{u}$
+\end_inset
+
+ or 
+\begin_inset Formula $\tau_{w}\frac{d\boldsymbol{w}}{dt}=C\boldsymbol{w}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+no
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+no
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+yes
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Input lower than mean 
+\begin_inset Formula $\Rightarrow$
+\end_inset
+
+ decrease weights
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+BCM
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\tau_{w}\frac{d\boldsymbol{w}}{dt}=v\boldsymbol{u}\left(v-\theta_{v}\right)$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+yes if 
+\begin_inset Formula $\theta_{v}$
+\end_inset
+
+ sliding
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+yes if 
+\begin_inset Formula $\theta_{v}$
+\end_inset
+
+ sliding
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+yes
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\theta_{v}$
+\end_inset
+
+ must grow faster than 
+\begin_inset Formula $v$
+\end_inset
+
+.
+ Unstable for fixed 
+\begin_inset Formula $\theta_{v}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Hebb + subtractive normalize
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\tau_{w}\frac{d\boldsymbol{w}}{dt}=v\boldsymbol{u}-v\bar{u}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+?
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+yes
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+? (probably no)
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+highly competitive
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Oja
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\tau_{w}\frac{d\boldsymbol{w}}{dt}=v\boldsymbol{u}-\alpha v^{2}\boldsymbol{w}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+yes
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+yes
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+?
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+multiplicative normalization
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
 \begin_layout Section
 Network
 \end_layout
@@ -670,7 +1233,7 @@ Random Facts
 \end_layout
 
 \begin_layout Itemize
-neuron sufficiently depolarized 
+Spike generating process: neuron sufficiently depolarized 
 \begin_inset Formula $\rightarrow$
 \end_inset
 
@@ -710,6 +1273,28 @@ neuron sufficiently depolarized
 \end_layout
 
 \begin_layout Section
+(Maybe) Useful Resources
+\end_layout
+
+\begin_layout Itemize
+Introduction to fMRI: 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+url{http://www2.fmrib.ox.ac.uk/Members/karla/resources/education/fmri/introduction-t
+o-fmri/} 
+\end_layout
+
+\end_inset
+
+ (not so long)
+\end_layout
+
+\begin_layout Section
 Glossary
 \end_layout
 
@@ -736,23 +1321,11 @@ network s
 \end_layout
 
 \begin_layout Description
-Cartesian
-\begin_inset space ~
-\end_inset
-
-code mmm
-\end_layout
-
-\begin_layout Description
 cell-attached
 \begin_inset space ~
 \end_inset
 
 recording c
-\end_layout
-
-\begin_layout Description
-cortex a
 \end_layout
 
 \begin_layout Description
@@ -764,7 +1337,9 @@ depress sda
 \end_layout
 
 \begin_layout Description
-dopamine s
+dopamine a neurotransmitter released by nerve cells to send signals to other
+ nerve cells.
+ It plays a major role in reward-motivated behaviour.
 \end_layout
 
 \begin_layout Description
@@ -784,18 +1359,6 @@ length exam explicitly asks to define the term.
 \end_layout
 
 \begin_layout Description
-equilibrium
-\begin_inset space ~
-\end_inset
-
-firing
-\begin_inset space ~
-\end_inset
-
-rate eee
-\end_layout
-
-\begin_layout Description
 Excitatory
 \begin_inset space ~
 \end_inset
@@ -811,14 +1374,6 @@ facilitate sadfsfds
 
 \begin_layout Description
 GABA major inhibitory neurotransmitter in the central nervous system.
-\end_layout
-
-\begin_layout Description
-Hopfield
-\begin_inset space ~
-\end_inset
-
-network am
 \end_layout
 
 \begin_layout Description
@@ -847,7 +1402,10 @@ LGMD lobula giant motion detector
 \end_layout
 
 \begin_layout Description
-LGN l
+LGN lateral geniculate nucleus (LGN) is the primary relay center for visual
+ information received from the retina of the eye.
+ The LGN is found inside the thalamus of the brain.
+ 
 \end_layout
 
 \begin_layout Description
@@ -892,7 +1450,29 @@ neuromodulator nnnn
 \end_layout
 
 \begin_layout Description
-neurotransmitter mmmm
+neurotransmitter chemicals that transmit signals from a neuron to a target
+ cell across a synapse.
+ Neurotransmitters are packaged into synaptic vesicles clustered beneath
+ the membrane in the axon terminal, on the presynaptic side of a synapse.
+ They are released into and diffuse across the synaptic cleft, where they
+ bind to specific receptors in the membrane on the postsynaptic side of
+ the synapse.
+ Release of neurotransmitters usually follows arrival of an action potential
+ at the synapse.
+ (From 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+url{http://en.wikipedia.org/wiki/Neurotransmitter}
+\end_layout
+
+\end_inset
+
+)
 \end_layout
 
 \begin_layout Description
@@ -936,8 +1516,8 @@ preference
 \begin_inset space ~
 \end_inset
 
-reversal in the context of exponential and hyperbolic discounting of future
- rewards.
+reversal (in the context of exponential and hyperbolic discounting of future
+ rewards).
 \end_layout
 
 \begin_layout Description
