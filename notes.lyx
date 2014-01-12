@@ -757,6 +757,62 @@ showing that the weights do not grow without bound (stable).
 \end_layout
 
 \begin_layout Subsection
+Timing-Based Rules
+\end_layout
+
+\begin_layout Standard
+Experiments have shown that the relative timing of pre- and postsynaptic
+ action potentials plays a critical role in synaptic plasticity.
+ Plasticity occurs only if the time difference falls without 
+\begin_inset Formula $\pm50$
+\end_inset
+
+ms.
+ Sign of the modification depends on the order of pre- and postsynaptic
+ action potentials.
+\end_layout
+
+\begin_layout Standard
+Let 
+\begin_inset Formula $H(\tau)$
+\end_inset
+
+ determines the rate of synaptic modification that occurs due to postsynaptic
+ activity separated in time from presynaptic activity by an interval 
+\begin_inset Formula $\tau$
+\end_inset
+
+.
+ The total rate of synaptic modification is 
+\begin_inset Formula 
+\[
+\tau_{w}\frac{d\boldsymbol{w}}{dt}=\int_{0}^{\infty}d\tau\left(\overbrace{H(\tau)v(t)\boldsymbol{u}(t-\tau)}^{LTP}+\overbrace{H(-\tau)v(t-\tau)\boldsymbol{u}(t)}^{LTD}\right).
+\]
+
+\end_inset
+
+
+\begin_inset Formula $H(\tau)$
+\end_inset
+
+ should be positive when 
+\begin_inset Formula $\tau\geq0$
+\end_inset
+
+ and negative otherwise to explain LTP and LTD.
+ The rule is essentially the basic Hebb rule weighted with rate of change
+ 
+\begin_inset Formula $H(\tau)$
+\end_inset
+
+ which depends on time difference 
+\begin_inset Formula $\tau$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsection
 Summary on Plasticity and Learning
 \end_layout
 
@@ -810,7 +866,7 @@ Assume the postsynaptic activity
 
 \begin_layout Standard
 \begin_inset Tabular
-<lyxtabular version="3" rows="6" columns="6">
+<lyxtabular version="3" rows="7" columns="6">
 <features islongtable="true" headBottomDL="true" longtabularalignment="center">
 <column alignment="center" valignment="top" width="2cm">
 <column alignment="center" valignment="top" width="4cm">
@@ -1097,7 +1153,7 @@ Hebb + subtractive normalize
 \begin_inset Text
 
 \begin_layout Plain Layout
-\begin_inset Formula $\tau_{w}\frac{d\boldsymbol{w}}{dt}=v\boldsymbol{u}-v\bar{u}$
+\begin_inset Formula $\tau_{w}\frac{d\boldsymbol{w}}{dt}=v\boldsymbol{u}-v\bar{u}\boldsymbol{1}$
 \end_inset
 
 
@@ -1143,28 +1199,32 @@ highly competitive
 </cell>
 </row>
 <row>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
-Oja
+Oja (Hebb + multiplicative normalize)
 \end_layout
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
 \begin_inset Formula $\tau_{w}\frac{d\boldsymbol{w}}{dt}=v\boldsymbol{u}-\alpha v^{2}\boldsymbol{w}$
 \end_inset
 
+ or 
+\begin_inset Formula $\tau_{w}\frac{d\boldsymbol{w}}{dt}=\boldsymbol{Q}\boldsymbol{w}-\alpha\left(\boldsymbol{w}^{\top}\boldsymbol{Q}\boldsymbol{w}\right)\boldsymbol{w}$
+\end_inset
+
 
 \end_layout
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
@@ -1173,7 +1233,7 @@ yes
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
@@ -1182,7 +1242,7 @@ yes
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
@@ -1191,11 +1251,83 @@ yes
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
 multiplicative normalization
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Timing-based Hebb
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\lang english
+\begin_inset Formula $\tau_{w}\frac{d\boldsymbol{w}}{dt}=\int_{0}^{\infty}d\tau H(\tau)v(t)\boldsymbol{u}(t-\tau)+H(-\tau)v(t-\tau)\boldsymbol{u}(t)$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+no
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+yes
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+yes
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+synapses compete to control the timing of postsynaptic spikes
 \end_layout
 
 \end_inset
