@@ -1341,6 +1341,18 @@ synapses compete to control the timing of postsynaptic spikes
 \end_layout
 
 \begin_layout Section
+Spike Trains
+\end_layout
+
+\begin_layout Itemize
+HPP = Homogeneous Poisson process
+\end_layout
+
+\begin_layout Itemize
+IHPP = Inhomegeneous Poisson process
+\end_layout
+
+\begin_layout Section
 Network
 \end_layout
 
@@ -1402,6 +1414,17 @@ Spike generating process: neuron sufficiently depolarized
 \end_inset
 
  the spike carries on
+\end_layout
+
+\begin_layout Itemize
+No experimental evidence that action potential shape affects vesicle release.
+ What matters is whether there is a spike and the timing.
+\end_layout
+
+\begin_layout Itemize
+Spike train responses are variable even to the same stimulus.
+ This is due to the stochasticity of vesicle release, thermal noise in conductan
+ce, and ongoing processes in the brain.
 \end_layout
 
 \begin_layout Section
@@ -1693,7 +1716,10 @@ ganglion
 \begin_inset space ~
 \end_inset
 
-cells r
+cells a type of neuron located near the inner surface of the retina of the
+ eye.
+ It receives visual information from photoreceptors and transmits it to
+ several other regions.
 \end_layout
 
 \begin_layout Description
