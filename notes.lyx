@@ -1349,6 +1349,127 @@ Hopfield Network
 \end_layout
 
 \begin_layout Section
+Learning
+\end_layout
+
+\begin_layout Subsection
+Rescorla-Wagner
+\end_layout
+
+\begin_layout Paragraph
+Expected reward
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+v=wu
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+stimulus 
+\begin_inset Formula $u$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+expected reward 
+\begin_inset Formula $v$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+weight 
+\begin_inset Formula $w$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Paragraph
+Rescorla-Wagner Rule
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{align*}
+w & \leftarrow w+\epsilon\delta u\\
+ & =w+\epsilon(r-v)u
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $\delta=r-v$
+\end_inset
+
+ prediction error
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $\epsilon$
+\end_inset
+
+ learning rate
+\end_layout
+
+\begin_layout Standard
+If 
+\begin_inset Formula $\epsilon\ll1$
+\end_inset
+
+ and 
+\begin_inset Formula $u=1$
+\end_inset
+
+ then 
+\begin_inset Formula $w$
+\end_inset
+
+ flucutates around 
+\begin_inset Formula $\langle r\rangle$
+\end_inset
+
+ and the average 
+\begin_inset Formula $\delta$
+\end_inset
+
+ is zero.
+ In Pavlovian learning (dog, bell, food), the weight approaches the asymptotic
+ limit 
+\begin_inset Formula $w=r$
+\end_inset
+
+ exponentially when rewards are presents and exponentially decays to 
+\begin_inset Formula $w=0$
+\end_inset
+
+ if no rewards are present.
+ All this is possible in a multivariate way (multiple weights and stimuli)
+\begin_inset Formula 
+\begin{align*}
+v & =\mathbf{w}^{T}\mathbf{u}\\
+\mathbf{w} & \leftarrow\mathbf{w}+\epsilon\delta\mathbf{u}
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
 Random Facts
 \end_layout
 
