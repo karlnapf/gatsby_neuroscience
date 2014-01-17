@@ -1369,6 +1369,46 @@ IHPP = Inhomegeneous Poisson process
 Network
 \end_layout
 
+\begin_layout Section
+Coding
+\end_layout
+
+\begin_layout Subsection
+Spike triggered average
+\end_layout
+
+\begin_layout Standard
+Average (over trials) of all stimuli in a time window of size 
+\begin_inset Formula $\tau$
+\end_inset
+
+ that caused on of 
+\begin_inset Formula $n$
+\end_inset
+
+ spikes at times 
+\begin_inset Formula $t_{1},\dots,t_{n}$
+\end_inset
+
+
+\begin_inset Formula 
+\begin{align*}
+C(\tau) & =\left\langle \frac{1}{n}\sum_{i=1}^{n}s(t_{i}-\tau)\right\rangle _{\text{trials}}
+\end{align*}
+
+\end_inset
+
+where 
+\begin_inset Formula $s(t)$
+\end_inset
+
+ is the stimulus at time 
+\begin_inset Formula $t$
+\end_inset
+
+.
+\end_layout
+
 \begin_layout Subsection
 Network Dynamics
 \end_layout
