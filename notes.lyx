@@ -1607,6 +1607,204 @@ where we define
 \end_layout
 
 \begin_layout Subsection
+Network dynamics from the lecture
+\end_layout
+
+\begin_layout Standard
+The firing rate of neuron 
+\begin_inset Formula $i$
+\end_inset
+
+ is
+\begin_inset Formula 
+\begin{align*}
+\nu_{i} & =\phi\left(\sum_{j=1}^{N}A_{ij}\nu_{j}+I_{i}\right)
+\end{align*}
+
+\end_inset
+
+where 
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $I_{i}$
+\end_inset
+
+ is the input to the neuron 
+\begin_inset Formula $i$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $\phi$
+\end_inset
+
+ = (nonlinear) gain function 
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+The goal is to find 
+\begin_inset Formula $P(\nu)$
+\end_inset
+
+.
+ 
+\series default
+We start with random 
+\begin_inset Formula $A$
+\end_inset
+
+ where 
+\begin_inset Formula $A_{ij}$
+\end_inset
+
+ are drawn iid.
+ Since 
+\begin_inset Formula $A_{ij}$
+\end_inset
+
+ will be around the mean most of the time, we write
+\begin_inset Formula 
+\begin{align*}
+A_{ij} & =\bar{A}+\delta A_{ij}
+\end{align*}
+
+\end_inset
+
+where 
+\begin_inset Formula $\bar{A}=\left\langle A_{ij}\right\rangle =\int dA\, p(A)A$
+\end_inset
+
+ and 
+\begin_inset Formula $\delta A_{ij}$
+\end_inset
+
+ is the deviation from the mean.
+ The synaptic drive can be rewritten as
+\begin_inset Formula 
+\begin{align*}
+\sum_{j}A_{ij}\nu_{j} & =\sum_{j}\bar{A}\nu_{j}+\sum_{j}\delta A_{ij}\nu_{j}\\
+ & =N\bar{A}\bar{\nu}+\overbrace{\sum_{j}\delta A_{ij}\nu_{j}}^{:=\xi_{i}}
+\end{align*}
+
+\end_inset
+
+where 
+\begin_inset Formula $\bar{\nu}:=\frac{1}{N}\sum_{j}\nu_{i}$
+\end_inset
+
+.
+ Since 
+\begin_inset Formula $\delta A_{ij}$
+\end_inset
+
+ has 
+\begin_inset Formula $0$
+\end_inset
+
+ mean, 
+\begin_inset Formula $\xi_{i}$
+\end_inset
+
+ will also have 
+\begin_inset Formula $0$
+\end_inset
+
+ mean.
+ By central limit theorem, 
+\begin_inset Formula $\xi$
+\end_inset
+
+ is normally distributed with some variance.
+ The variance of 
+\begin_inset Formula $\xi_{i}$
+\end_inset
+
+ is given by
+\begin_inset Formula 
+\begin{align*}
+\mathbb{V}\left[\xi_{i}\right] & =\left\langle \xi_{i}^{2}\right\rangle =\left\langle \left(\sum_{j}\delta A_{ij}\nu_{j}\right)^{2}\right\rangle \\
+ & =\left\langle \sum_{j}\sum_{j'}\delta A_{ij}\delta A_{ij'}\nu_{j}\nu_{j'}\right\rangle \\
+ & =\left\langle \sum_{j}\overbrace{\delta A_{ij}^{2}}^{\left(A-\bar{A}\right)^{2}}\nu_{j}^{2}+\sum_{j\neq j'}\delta A_{ij}\delta A_{ij'}\nu_{j}\nu_{j'}\right\rangle \\
+ & =\sum_{j}\mathbb{V}\left[A_{ij}\right]\nu_{j}^{2}+\sum_{j\neq j'}\underbrace{\left\langle \delta A_{ij}\right\rangle }_{0\text{ mean }}\left\langle \delta A_{ij'}\right\rangle \nu_{j}\nu_{j'}\\
+ & =\mathbb{V}\left[A\right]\sum_{j}\nu_{j}^{2}=N\bar{v^{2}}\mathbb{V}\left[A\right].
+\end{align*}
+
+\end_inset
+
+So, 
+\begin_inset Formula $\xi_{i}\sim\mathcal{N}\left(0,N\bar{v^{2}}\mathbb{V}\left[A\right]\right)$
+\end_inset
+
+.
+ Now we can rewrite the firing rate as
+\begin_inset Formula 
+\begin{align*}
+\nu_{i} & =\phi\left(N\bar{A}\bar{\nu}+\xi_{i}+I_{i}\right).
+\end{align*}
+
+\end_inset
+
+We can express 
+\begin_inset Formula $\xi_{i}$
+\end_inset
+
+ in term of a standard normally distributed variable 
+\begin_inset Formula $\eta_{i}\sim\mathcal{N}\left(0,1\right)$
+\end_inset
+
+ by 
+\begin_inset Formula $\xi_{i}=\eta_{i}\sqrt{N\bar{v^{2}}\mathbb{V}\left[A\right]}$
+\end_inset
+
+.
+ So the firing rate is 
+\begin_inset Formula 
+\begin{align*}
+\nu_{i} & =\phi\left(N\bar{A}\bar{\nu}+\eta_{i}\sqrt{N\bar{v^{2}}\mathbb{V}\left[A\right]}+I_{i}\right).
+\end{align*}
+
+\end_inset
+
+With this the expected firing rate is 
+\begin_inset Formula 
+\begin{align*}
+\mathbb{E}_{\eta,I}\left[\nu\right] & =\iint d\eta\, dI\, p(\eta,I)\phi\left(N\bar{A}\bar{\nu}+\eta_{i}\sqrt{N\bar{v^{2}}\mathbb{V}\left[A\right]}+I\right)\\
+ & =\int d\eta\, p(\eta)\int dI\, p(I)\phi\left(N\bar{A}\bar{\nu}+\eta_{i}\sqrt{N\bar{v^{2}}\mathbb{V}\left[A\right]}+I\right)\\
+ & =\int d\eta\,\frac{e^{-\xi^{2}/2}}{\sqrt{2\pi}}\int dI\, p(I)\phi\left(N\bar{A}\bar{\nu}+\eta_{i}\sqrt{N\bar{v^{2}}\mathbb{V}\left[A\right]}+I\right)
+\end{align*}
+
+\end_inset
+
+where we assume 
+\begin_inset Formula $p(\eta,I)=p(\eta)p(I)$
+\end_inset
+
+ and that we know 
+\begin_inset Formula $p(I)$
+\end_inset
+
+.
+ In a similar way, the second moment of 
+\begin_inset Formula $\nu$
+\end_inset
+
+ can be computed by
+\begin_inset Formula 
+\begin{align*}
+\mathbb{E}_{\eta,I}\left[\nu^{2}\right] & =\int d\eta\,\frac{e^{-\xi^{2}/2}}{\sqrt{2\pi}}\int dI\, p(I)\phi\left(N\bar{A}\bar{\nu}+\eta_{i}\sqrt{N\bar{v^{2}}\mathbb{V}\left[A\right]}+I\right)^{2}.
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
 Hopfield Network
 \end_layout
 
