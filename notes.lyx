@@ -21,6 +21,19 @@
                hyperfigures
                ]{hyperref} 
 \usepackage{url}
+\usepackage{enumerate}
+
+
+\let\oldenumerate=\enumerate
+\def\enumerate{
+\oldenumerate
+\setlength{\itemsep}{0pt}
+}
+\let\olditemize=\itemize
+\def\itemize{
+\olditemize
+\setlength{\itemsep}{0pt}
+}
 
 \allowdisplaybreaks
 \end_preamble
@@ -94,7 +107,7 @@ Heiko, Wittawat
 \end_layout
 
 \begin_layout Section
-Bio-Physics and all that
+Bio-Physics and all that 
 \end_layout
 
 \begin_layout Subsection
@@ -1357,6 +1370,243 @@ Network
 \end_layout
 
 \begin_layout Subsection
+Network Dynamics
+\end_layout
+
+\begin_layout Standard
+The following content is a summary of Peter Latham's note on network dynamics
+ 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+(
+\backslash
+url{http://www.gatsby.ucl.ac.uk/~pel/lectures/networks.pdf})
+\end_layout
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsubsection
+Network that violate Dale's law
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{align*}
+\nu_{i} & =\phi\left(h_{i}+I_{i}\right)\\
+h_{i} & =\sum_{j\neq i}B_{ij}\nu_{j}
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $\nu_{i}$
+\end_inset
+
+ is the firing rate of neuron 
+\begin_inset Formula $i$
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $I_{i}$
+\end_inset
+
+ is the input to the neuron 
+\begin_inset Formula $i$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $h_{i}$
+\end_inset
+
+ is the synaptic drive
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $\phi$
+\end_inset
+
+ = (nonlinear) gain function (typically sigmoid)
+\end_layout
+
+\begin_layout Itemize
+Assume 
+\begin_inset Formula $B_{ij}$
+\end_inset
+
+ are draw iid from some distribution
+\end_layout
+
+\begin_layout Standard
+The firing rate of a neuron depends on the rates of others.
+ 
+\series bold
+The goal here is to find the distribution of 
+\begin_inset Formula $\nu_{i}$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+Let 
+\begin_inset Formula $B_{ij}=\frac{W_{ij}}{\sqrt{K}}$
+\end_inset
+
+.
+ Then the synaptic drive becomes 
+\begin_inset Formula 
+\[
+h_{i}=\frac{1}{K^{1/2}}\sum_{j\neq i}W_{ij}\nu_{j}.
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Paragraph
+Central Limit Theorem
+\end_layout
+
+\begin_layout Standard
+The main trick to find the distribution here is based on the central limit
+ theorem: the distribution of a large sum of independent random variables
+ approaches Gaussian.
+ So, we can assume 
+\begin_inset Formula $h_{i}$
+\end_inset
+
+ follows the normal distribution i.e., 
+\begin_inset Formula $P(h_{i})=\mathcal{N}(\cdot,\cdot)$
+\end_inset
+
+.
+ Assume we know 
+\begin_inset Formula $P(I_{i})$
+\end_inset
+
+.
+ The distribution of 
+\begin_inset Formula $\nu_{i}$
+\end_inset
+
+ is
+\begin_inset Formula 
+\begin{align*}
+P(\nu) & =\int dI\, P(I)\int dh\, p(h)\delta\left(\nu-\phi\left(h+I\right)\right)
+\end{align*}
+
+\end_inset
+
+In general, it should have been 
+\begin_inset Formula 
+\begin{align*}
+P(\nu) & =\int dI\, dh\, P(I,h)\delta\left(\nu-\phi\left(h+I\right)\right)
+\end{align*}
+
+\end_inset
+
+but we assume 
+\begin_inset Formula $h$
+\end_inset
+
+ and 
+\begin_inset Formula $I$
+\end_inset
+
+ are independent.
+\end_layout
+
+\begin_layout Paragraph
+Distribution of 
+\begin_inset Formula $h$
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Standard
+The distribution of 
+\begin_inset Formula $h$
+\end_inset
+
+ is fully characterized by 
+\begin_inset Formula $\left\langle h\right\rangle $
+\end_inset
+
+ and 
+\begin_inset Formula $\left\langle h^{2}\right\rangle $
+\end_inset
+
+.
+\begin_inset Formula 
+\begin{align*}
+\left\langle h\right\rangle  & =\frac{1}{N}\sum_{i=1}^{N}h_{i}=\frac{1}{N}\sum_{i=1}^{N}\frac{1}{K^{1/2}}\sum_{j\neq i}W_{ij}\nu_{j}\\
+ & =\frac{1}{N}\sum_{i=1}^{N}\frac{1}{K^{1/2}}\sum_{j\neq i}W_{ij}\nu_{j}\\
+ & \approx\frac{N}{K^{1/2}}\bar{W}\bar{\nu}
+\end{align*}
+
+\end_inset
+
+where 
+\begin_inset Formula $\bar{W}=\frac{1}{N^{2}}\sum_{i}\sum_{j}W_{ij}$
+\end_inset
+
+ and 
+\begin_inset Formula $\bar{\nu}=\frac{1}{N}\sum_{i}\nu_{i}$
+\end_inset
+
+.
+ The second moment is
+\begin_inset Formula 
+\begin{align*}
+\left\langle h^{2}\right\rangle  & \approx\frac{N^{2}}{K^{2}}\bar{W}^{2}\bar{\nu}^{2}+\frac{N}{K}\mathbb{V}\left[W\right]\bar{\nu^{2}}
+\end{align*}
+
+\end_inset
+
+where we define 
+\begin_inset Formula $\bar{\nu^{k}}:=\frac{1}{N}\sum_{i}\nu_{i}^{k}$
+\end_inset
+
+.
+ All 
+\begin_inset Formula $\nu$
+\end_inset
+
+'s should be expressed in terms of 
+\begin_inset Formula $h$
+\end_inset
+
+ to eliminate the cyclic dependency.
+ So we use the original definition of 
+\begin_inset Formula $\nu$
+\end_inset
+
+ which is 
+\begin_inset Formula $\nu_{i}=\phi\left(h_{i}+I_{i}\right)$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsection
 Hopfield Network
 \end_layout
 
@@ -1388,7 +1638,7 @@ stimulus
 \begin_inset Formula $u$
 \end_inset
 
-
+ 
 \end_layout
 
 \begin_layout Itemize
@@ -1546,6 +1796,24 @@ No experimental evidence that action potential shape affects vesicle release.
 Spike train responses are variable even to the same stimulus.
  This is due to the stochasticity of vesicle release, thermal noise in conductan
 ce, and ongoing processes in the brain.
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+Peter's rule
+\series default
+: An axon nearby a dendrite has 20% chance of making a connection.
+ (Good rule for cortex and hippocampus).
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+Dale's law
+\series default
+: A neuron makes either excitatory connections or inhibitory connections,
+ but never both.
 \end_layout
 
 \begin_layout Section
